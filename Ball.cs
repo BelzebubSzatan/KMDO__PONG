@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace KMDO__PONG
@@ -33,13 +34,7 @@ namespace KMDO__PONG
                 Height = height,
                 Fill = new SolidColorBrush(Colors.White)
             };
-            X = Canvas.Width / 2 - width / 2;
-            Y = Canvas.Height / 2 - height / 2;
-            Speed = 3f;
-            DirectionX = 1;
-            DirectionY = 1;
-            Random r = new();
-            Angle = r.Next(30, 60) * Math.PI / 180;
+            Reset();
             Canvas.Children.Add(Shape);
         }
 
@@ -54,13 +49,22 @@ namespace KMDO__PONG
             Y += Math.Cos(Angle) * Speed * DirectionY;
 
             if (Y - Height <= 0 || Y + Height >= Canvas.Height)
+            {
                 DirectionY *= -1;
+                Speed += 0.5f;
+            }
 
             Draw();
         }
         public void Reset()
         {
-            throw new NotImplementedException();
+            X = Canvas.Width / 2 - Width / 2;
+            Y = Canvas.Height / 2 - Height / 2;
+            Speed = 3f;
+            DirectionX = 1;
+            DirectionY = 1;
+            Random r = new();
+            Angle = r.Next(30, 60) * Math.PI / 180;
         }
     }
 }
