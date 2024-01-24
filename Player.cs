@@ -24,7 +24,7 @@ namespace KMDO__PONG
             Width = width;
             Height = height;
             Canvas = source;
-            X = isPlayer ? 50 : Canvas.Width - 200 - width;
+            X = isPlayer ? 50 : Canvas.Width - 50 - width;
             Y = Canvas.Height / 2 - height / 2;
             Shape = new()
             {
