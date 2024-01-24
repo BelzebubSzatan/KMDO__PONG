@@ -43,8 +43,6 @@ namespace KMDO__PONG
         }
         public void Reset()
         {
-            X = MousePlayer ? 20 : Canvas.Width - 20 - Width;
-            Y = Canvas.Height / 2 - Width / 2;
             Points = 0;
         }
     }
