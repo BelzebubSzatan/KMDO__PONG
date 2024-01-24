@@ -18,10 +18,12 @@ namespace KMDO__PONG
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
+        Ball ball;
         Player mousePlayer, keyboardPlayer;
         public MainWindow()
         {
             InitializeComponent();
+            ball = new(10,10,MainCanavs);
             mousePlayer = new(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), false);
             keyboardPlayer = new(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), true);
             timer = new();
@@ -32,8 +34,19 @@ namespace KMDO__PONG
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
+            if (ball.X <= 0)
+            {
+                ball.Reset();
+            }
+            if(ball.X>=ball.Canvas.Width)
+            {
+                ball.Reset();
+            }
+            ball.Move();
         }
-
+        private void UpdateScores()
+        {
+        }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch(e.Key) 
