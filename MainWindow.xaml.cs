@@ -31,9 +31,19 @@ namespace KMDO__PONG
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
+            if (ball.X <= 0)
+            {
+                ball.Reset();
+            }
+            if(ball.X>=ball.Canvas.Width)
+            {
+                ball.Reset();
+            }
             ball.Move();
         }
-
+        private void UpdateScores()
+        {
+        }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
 
