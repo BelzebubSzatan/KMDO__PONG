@@ -18,6 +18,7 @@ namespace KMDO__PONG
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
+        Player mousePlayer, keyboardPlayer;
         public MainWindow()
         {
             InitializeComponent();
