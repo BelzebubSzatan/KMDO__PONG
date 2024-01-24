@@ -33,6 +33,8 @@ namespace KMDO__PONG
                 Height = height,
                 Fill = new SolidColorBrush(Colors.White)
             };
+            X = Canvas.Width / 2 - width / 2;
+            Y = Canvas.Height / 2 - height / 2;
             Speed = 3f;
             DirectionX = 1;
             DirectionY = 1;
@@ -43,9 +45,19 @@ namespace KMDO__PONG
 
         public void Draw()
         {
-            throw new NotImplementedException();
+            Canvas.SetLeft(Shape, X);
+            Canvas.SetTop(Shape, Y);
         }
+        public void Move()
+        {
+            X += Math.Cos(Angle) * Speed * DirectionX;
+            Y += Math.Cos(Angle) * Speed * DirectionY;
 
+            if (Y - Height <= 0 || Y + Height >= Canvas.Height)
+                DirectionY *= -1;
+
+            Draw();
+        }
         public void Reset()
         {
             throw new NotImplementedException();
