@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace KMDO__PONG
 {
@@ -16,9 +17,28 @@ namespace KMDO__PONG
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer timer;
         public MainWindow()
         {
             InitializeComponent();
+            timer = new();
+            timer.Interval = TimeSpan.FromMilliseconds(16);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
