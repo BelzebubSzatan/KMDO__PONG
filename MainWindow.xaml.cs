@@ -18,9 +18,11 @@ namespace KMDO__PONG
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
+        Ball ball;
         public MainWindow()
         {
             InitializeComponent();
+            ball = new(10,10,MainCanavs);
             timer = new();
             timer.Interval = TimeSpan.FromMilliseconds(16);
             timer.Tick += Timer_Tick;
@@ -29,6 +31,7 @@ namespace KMDO__PONG
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
+            ball.Move();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
