@@ -12,11 +12,11 @@ namespace KMDO__PONG
 {
     public class Ball : ICanvasObject
     {
-        public double X { get ; set ; }
-        public double Y { get ; set ; }
-        public int Width { get ; set ; }
-        public int Height { get ; set ; }
-        public Canvas Canvas { get ; set ; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public Canvas Canvas { get; set; }
         public double Angle { get; set; }
         public int DirectionX { get; set; }
         public int DirectionY { get; set; }
@@ -60,9 +60,10 @@ namespace KMDO__PONG
         {
             X = Canvas.Width / 2 - Width / 2;
             Y = Canvas.Height / 2 - Height / 2;
+            Random random = new();
             Speed = 3f;
-            DirectionX = 1;
-            DirectionY = 1;
+            DirectionX = random.Next(1, 30) % 2 == 0 ? 1 : -1;
+            DirectionY = random.Next(1, 30) % 2 == 0 ? 1 : -1;
             Random r = new();
             Angle = r.Next(30, 60) * Math.PI / 180;
         }
