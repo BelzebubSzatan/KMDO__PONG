@@ -93,6 +93,10 @@ namespace KMDO__PONG {
                     keyboardPlayer.Reset();
                     ball.Reset();
                     UpdateScores();
+                    for(int i = 1; i < balls.Count; ++i) {
+                        MainCanavs.Children.Remove(balls[i].Shape);
+                        balls.Remove(balls[i]);
+                    }
                     break;
             }
         }
