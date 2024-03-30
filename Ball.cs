@@ -37,7 +37,6 @@ namespace KMDO__PONG
             Reset();
             Canvas.Children.Add(Shape);
         }
-
         public void Draw()
         {
             Canvas.SetLeft(Shape, X);

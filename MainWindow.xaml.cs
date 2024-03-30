@@ -10,60 +10,69 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace KMDO__PONG
-{
+namespace KMDO__PONG {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
         DispatcherTimer timer;
+        List<Ball> balls = new();
         Ball ball;
+        PowerUp powerUp;
         Player mousePlayer, keyboardPlayer;
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
-            ball = new(10,10,MainCanavs);
+            ball = new(10, 10, MainCanavs);
+            balls.Add(ball);
+            powerUp = new(MainCanavs, ref balls);
             mousePlayer = new(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), false);
             keyboardPlayer = new(MainCanavs, 10, 100, new SolidColorBrush(Colors.White), true);
-            timer = new();
-            timer.Interval = TimeSpan.FromMilliseconds(16);
+            timer = new() {
+                Interval = TimeSpan.FromMilliseconds(16)
+            };
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
-        {
-            if (ball.X <= 0)
-            {
-                mousePlayer.Points += 1;
-                UpdateScores();
-                ball.Reset();
+        private void Timer_Tick(object? sender, EventArgs e) {
+            for (int i = 0; i < balls.Count; i++) {
+                Ball item = balls[i];
+                powerUp.CheckCollisionBetweenBallAndPowerUp();
+                item.Move();
+                if (item.X <= 0) {
+                    mousePlayer.Points += 1;
+                    UpdateScores();
+                    if (item == ball)
+                        item.Reset();
+                    else {
+                        balls.Remove(item);
+                        MainCanavs.Children.Remove(item.Shape);
+                    }
+                }
+                if (item.X >= item.Canvas.Width) {
+                    keyboardPlayer.Points += 1;
+                    UpdateScores();
+                    if (item == ball)
+                        item.Reset();
+                    else {
+                        balls.Remove(item);
+                        MainCanavs.Children.Remove(item.Shape);
+                    }
+                }
+                if (item.Y >= keyboardPlayer.Y && item.Y <= keyboardPlayer.Y + keyboardPlayer.Height && item.X <= keyboardPlayer.X + keyboardPlayer.Width && item.X >= keyboardPlayer.X) {
+                    item.DirectionX *= -1;
+                }
+                if (item.Y >= mousePlayer.Y && item.Y <= mousePlayer.Y + mousePlayer.Height && item.X >= mousePlayer.X - item.Width && item.X <= mousePlayer.X + mousePlayer.Width) {
+                    item.DirectionX *= -1;
+                }
             }
-            if(ball.X>=ball.Canvas.Width)
-            {
-                keyboardPlayer.Points += 1;
-                UpdateScores();
-                ball.Reset();
-            }
-            if(ball.Y>=keyboardPlayer.Y&&ball.Y<=keyboardPlayer.Y+keyboardPlayer.Height && ball.X<=keyboardPlayer.X+keyboardPlayer.Width && ball.X>=keyboardPlayer.X) {
-                ball.DirectionX *= -1;
-            }
-            if(ball.Y >= mousePlayer.Y && ball.Y <= mousePlayer.Y + mousePlayer.Height&& ball.X >= mousePlayer.X-ball.Width && ball.X <= mousePlayer.X + mousePlayer.Width)
-            {
-                ball.DirectionX *= -1;
-            }
-            ball.Move();
         }
-        private void UpdateScores()
-        {
+        private void UpdateScores() {
             KeyboardPlayer.Content = keyboardPlayer.Points.ToString();
             MousePlayer.Content = mousePlayer.Points.ToString();
         }
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch(e.Key) 
-            {
+        private void Window_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
                 case Key.Escape:
                     this.Close();
                     break;
@@ -74,7 +83,7 @@ namespace KMDO__PONG
                     keyboardPlayer.Draw();
                     break;
                 case Key.S:
-                    if(keyboardPlayer.Y +keyboardPlayer.Height>=MainCanavs.Height) 
+                    if (keyboardPlayer.Y + keyboardPlayer.Height >= MainCanavs.Height)
                         return;
                     keyboardPlayer.Y += 10;
                     keyboardPlayer.Draw();
@@ -88,8 +97,7 @@ namespace KMDO__PONG
             }
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
-        {
+        private void Window_MouseMove(object sender, MouseEventArgs e) {
             if (Mouse.GetPosition(this).Y + mousePlayer.Height >= MainCanavs.Height)
                 return;
             mousePlayer.Y = Mouse.GetPosition(this).Y;
