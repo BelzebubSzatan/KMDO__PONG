@@ -20,6 +20,7 @@ namespace KMDO__PONG {
             Canvas = canvas;
             Balls = balls;
             mainBall = balls[0];
+            mainBall.Shape.Fill=new SolidColorBrush(Colors.Red);
             alreadyAdded = false;
             RelocateShape();
         }

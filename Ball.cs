@@ -34,8 +34,8 @@ namespace KMDO__PONG {
             Canvas.Children.Add(Shape);
         }
         public void Draw() {
-            Canvas.SetLeft(Shape, X - Width/2);
-            Canvas.SetTop(Shape, Y - Height/2);
+            Canvas.SetLeft(Shape, X);
+            Canvas.SetTop(Shape, Y);
         }
         public void Move() {
             X += Math.Cos(Angle) * Speed * DirectionX;
