@@ -59,10 +59,10 @@ namespace KMDO__PONG {
                         MainCanavs.Children.Remove(item.Shape);
                     }
                 }
-                if (item.Y >= keyboardPlayer.Y && item.Y <= keyboardPlayer.Y + keyboardPlayer.Height && item.X <= keyboardPlayer.X + keyboardPlayer.Width && item.X >= keyboardPlayer.X) {
+                if (item.Y >= keyboardPlayer.Y && item.Y <= keyboardPlayer.Y + keyboardPlayer.Height && item.X - item.Width <= keyboardPlayer.X + keyboardPlayer.Width && item.X - item.Width >= keyboardPlayer.X) {
                     item.DirectionX *= -1;
                 }
-                if (item.Y >= mousePlayer.Y && item.Y <= mousePlayer.Y + mousePlayer.Height && item.X >= mousePlayer.X - item.Width && item.X <= mousePlayer.X + mousePlayer.Width) {
+                if (item.Y >= mousePlayer.Y && item.Y <= mousePlayer.Y + mousePlayer.Height && item.X - item.Width >= mousePlayer.X - item.Width && item.X + item.Width - item.Width <= mousePlayer.X + mousePlayer.Width) {
                     item.DirectionX *= -1;
                 }
             }
@@ -93,7 +93,7 @@ namespace KMDO__PONG {
                     keyboardPlayer.Reset();
                     ball.Reset();
                     UpdateScores();
-                    for(int i = 1; i < balls.Count; ++i) {
+                    for (int i = 1; i < balls.Count; ++i) {
                         MainCanavs.Children.Remove(balls[i].Shape);
                         balls.Remove(balls[i]);
                     }

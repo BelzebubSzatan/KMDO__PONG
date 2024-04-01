@@ -8,10 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
-namespace KMDO__PONG
-{
-    public class Ball : ICanvasObject
-    {
+namespace KMDO__PONG {
+    public class Ball : ICanvasObject {
         public double X { get; set; }
         public double Y { get; set; }
         public int Width { get; set; }
@@ -23,13 +21,11 @@ namespace KMDO__PONG
         public double Speed { get; set; }
         public Ellipse Shape { get; set; }
 
-        public Ball(int width, int height, Canvas canvas)
-        {
+        public Ball(int width, int height, Canvas canvas) {
             Width = width;
             Height = height;
             Canvas = canvas;
-            Shape = new()
-            {
+            Shape = new() {
                 Width = width,
                 Height = height,
                 Fill = new SolidColorBrush(Colors.White)
@@ -37,26 +33,22 @@ namespace KMDO__PONG
             Reset();
             Canvas.Children.Add(Shape);
         }
-        public void Draw()
-        {
-            Canvas.SetLeft(Shape, X);
-            Canvas.SetTop(Shape, Y);
+        public void Draw() {
+            Canvas.SetLeft(Shape, X - Width);
+            Canvas.SetTop(Shape, Y - Height);
         }
-        public void Move()
-        {
+        public void Move() {
             X += Math.Cos(Angle) * Speed * DirectionX;
             Y += Math.Cos(Angle) * Speed * DirectionY;
 
-            if (Y - Height <= 0 || Y + Height >= Canvas.Height)
-            {
+            if (Y - Height <= 0 || Y + Height >= Canvas.Height) {
                 DirectionY *= -1;
                 Speed += 0.5f;
             }
 
             Draw();
         }
-        public void Reset()
-        {
+        public void Reset() {
             X = Canvas.Width / 2 - Width / 2;
             Y = Canvas.Height / 2 - Height / 2;
             Random random = new();
