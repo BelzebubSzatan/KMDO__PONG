@@ -59,10 +59,10 @@ namespace KMDO__PONG {
                         MainCanavs.Children.Remove(item.Shape);
                     }
                 }
-                if (item.Y >= keyboardPlayer.Y && item.Y <= keyboardPlayer.Y + keyboardPlayer.Height && item.X - item.Width <= keyboardPlayer.X + keyboardPlayer.Width && item.X - item.Width >= keyboardPlayer.X) {
+                if (item.Y >= keyboardPlayer.Y && item.Y <= keyboardPlayer.Y + keyboardPlayer.Height && item.X - item.Width / 2 <= keyboardPlayer.X + keyboardPlayer.Width && item.X - item.Width/2 >= keyboardPlayer.X) {
                     item.DirectionX *= -1;
                 }
-                if (item.Y >= mousePlayer.Y && item.Y <= mousePlayer.Y + mousePlayer.Height && item.X - item.Width >= mousePlayer.X - item.Width && item.X + item.Width - item.Width <= mousePlayer.X + mousePlayer.Width) {
+                if (item.Y >= mousePlayer.Y && item.Y <= mousePlayer.Y + mousePlayer.Height && item.X - (item.Width / 2) >= mousePlayer.X - item.Width/2 && item.X - (item.Width / 2) <= mousePlayer.X + mousePlayer.Width) {
                     item.DirectionX *= -1;
                 }
             }
